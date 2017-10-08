@@ -1,0 +1,60 @@
+services:
+
+  rpg.example.sum:
+    class: RPGBundle\Service\SumService
+
+  default_controller:
+    class: RPGBundle\Controller\DefaultController
+    autowire: true
+
+  test_command:
+    class: RPGBundle\Command\TestCommand
+    tags:
+      - {name: console.command}
+
+  character.factory:
+    class: RPGBundle\Hero\HeroCharacterFactory
+    arguments: ['@doctrine.orm.default_entity_manager']
+
+  warrior.proto:
+    class: RPGBundle\Hero\WarriorPrototype
+    tags: ['character.prototype']
+
+  mage.proto:
+    class: RPGBundle\Hero\MagePrototype
+    tags: ['character.prototype']
+
+  assassin.proto:
+    class: RPGBundle\Hero\AssassinPrototype
+    tags: ['character.prototype']
+
+  rpg.action.fight_start:
+      class: RPGBundle\Actions\Fight\FightStartAction
+      calls:
+          - [setNext, ['@rpg.action.kick']]
+
+  rpg.action.kick:
+      class: RPGBundle\Actions\Fight\KickAction
+      calls:
+          - [setNext, ['@rpg.action.exp']]
+
+  rpg.action.exp:
+      class: RPGBundle\Actions\Fight\ExpAction
+      calls:
+          - [setNext, ['@rpg.action.fight_end']]
+      arguments: ['@doctrine.orm.default_entity_manager']
+
+
+  rpg.action.fight_end:
+      class: RPGBundle\Actions\Fight\ExpAction
+      arguments: ['@doctrine.orm.default_entity_manager']
+
+
+  rpg.listener.fight:
+      class: RPGBundle\Listener\FightListener
+      arguments:
+          - '@rpg.action.fight_start'
+          - '@doctrine.orm.entity_manager'
+      tags:
+          - {name: kernel.event_listener, event: fight.start}
+          - {name: kernel.event_listener, event: fight.end}

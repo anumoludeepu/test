@@ -1,0 +1,17 @@
+rpg_homepage:
+  path:     /
+  defaults: {_controller: default_controller:indexAction}
+
+rpg_sum_example:
+  path: /sum/{a}/{b}
+  defaults: {_controller: default_controller:sumAction}
+
+rpg_character:
+    type: rest
+    resource: "@RPGBundle/Controller/CharacterController.php"
+    type: annotation
+    prefix: /char
+
+NelmioApiDoc:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
