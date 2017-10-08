@@ -15,6 +15,8 @@ class HeroHeroFight extends HeroFight
      * @var HeroCharacter
      * @ORM\ManyToOne(targetEntity="RPGBundle\Entity\HeroCharacter", inversedBy="id")
      * @ORM\JoinColumn(name="enemy", referencedColumnName="id")
+     * @JMS\Expose()
+     * @JMS\MaxDepth(2)
      */
     protected $enemy;
 

@@ -35,7 +35,8 @@ class ExpAction extends ActionChainAbstract
         $lvlDiff = $winner->getLvl() - $looser->getLvl();
 
         $winnerLevel = $this->getLvlRepo()->findOneBy(['lvl' => $winner->getLvl()]);
-        $newExp = $winnerLevel->getExp() / 100;
+        $newExp = $winnerLevel->getExp() / 5 + $winner->getLvl();
+        $lvlDiff = $lvlDiff == 0 ? 1 : $lvlDiff;
 
         $newExp = $lvlDiff > 0 ? $newExp * $lvlDiff : $newExp / abs($lvlDiff);
 
@@ -54,6 +55,10 @@ class ExpAction extends ActionChainAbstract
 
         $character->setExp($character->getExp() - $nextLevel->getExp());
         $character->setLvl($character->getLvl() + 1);
+        $character->setHp($nextLevel->getHpModifier() + $character->getBaseHp());
+        $character->setBaseHp($character->getHp());
+        $character->setDef($nextLevel->getDefModifier() + $character->getDef());
+        $character->setAtk($nextLevel->getAtkModifier() + $character->getAtk());
 
         return $this->lvlUp($character);
     }

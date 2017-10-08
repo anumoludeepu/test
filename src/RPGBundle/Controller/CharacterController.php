@@ -118,7 +118,10 @@ class CharacterController extends FOSRestController
 
         $this->get('event_dispatcher')->dispatch(FightEvent::ON_FIGHT_START, $event);
 
-        return $event->getCharacter();
+        $hero = $event->getCharacter();
+        $this->get('doctrine.orm.entity_manager')->refresh($hero);
+
+        return $hero;
     }
 
     /**

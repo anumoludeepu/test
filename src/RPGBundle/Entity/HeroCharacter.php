@@ -37,6 +37,14 @@ class HeroCharacter extends Character
      */
     protected $exp = 0;
 
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     * @JMS\Expose()
+     */
+    protected $baseHp = self::DEFAULT_HP_QTY;
+
     /**
      * @var ArrayCollection | HeroSkill[]
      * @ORM\OneToMany(targetEntity="RPGBundle\Entity\HeroSkill", mappedBy="hero", orphanRemoval=true, cascade={"persist", "remove"})
@@ -132,6 +140,22 @@ class HeroCharacter extends Character
     public function setFightHistory($fightHistory)
     {
         $this->fightHistory = $fightHistory;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBaseHp(): int
+    {
+        return $this->baseHp;
+    }
+
+    /**
+     * @param int $baseHp
+     */
+    public function setBaseHp(int $baseHp)
+    {
+        $this->baseHp = $baseHp;
     }
 
 }

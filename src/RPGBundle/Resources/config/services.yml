@@ -46,8 +46,8 @@ services:
 
 
   rpg.action.fight_end:
-      class: RPGBundle\Actions\Fight\ExpAction
-      arguments: ['@doctrine.orm.default_entity_manager']
+      class: RPGBundle\Actions\Fight\FightEndAction
+      arguments: ['@debug.event_dispatcher']
 
 
   rpg.listener.fight:

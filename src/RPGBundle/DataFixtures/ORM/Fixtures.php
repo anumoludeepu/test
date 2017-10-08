@@ -39,10 +39,10 @@ class Fixtures extends Fixture
         $baseXp = 100;
         for ($lvl = 1; $lvl < 5; $lvl++) {
             $level = new CharacterLevel();
-            $level->setExp($baseXp * $lvl^2);
-            $level->setAtkModifier(HeroCharacter::DEFAULT_ATK * $lvl^3);
-            $level->setDefModifier(HeroCharacter::DEFAULT_DEF * $lvl^2);
-            $level->setHpModifier(HeroCharacter::DEFAULT_HP_QTY * $lvl^4);
+            $level->setExp($baseXp * $lvl**2);
+            $level->setAtkModifier(HeroCharacter::DEFAULT_ATK * $lvl**3);
+            $level->setDefModifier(HeroCharacter::DEFAULT_DEF * $lvl**2);
+            $level->setHpModifier(HeroCharacter::DEFAULT_HP_QTY * $lvl**4);
             $level->setLvl($lvl);
             $manager->persist($level);
         }

@@ -25,30 +25,35 @@ abstract class HeroFight implements HeroFightInterface
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Expose()
      */
     protected $id;
 
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime", nullable=false)
+     * @JMS\Expose()
      */
     protected $timeStart;
 
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime", nullable=false)
+     * @JMS\Expose()
      */
     protected $timeFinish;
 
     /**
      * @var integer
      * @ORM\Column(type="integer", nullable=false)
+     * @JMS\Expose()
      */
     protected $dmgAffected = 0;
 
     /**
      * @var integer
      * @ORM\Column(type="integer", nullable=false)
+     * @JMS\Expose()
      */
     protected $dmgReceived = 0;
 

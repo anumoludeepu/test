@@ -37,7 +37,9 @@ class FightListener
     {
         $this->em->persist($event->getCharacter());
         $this->em->persist($event->getEnemy());
+        $timeFinish = new \DateTime();
         foreach ($event->getFightLogs() as $fightLog) {
+            $fightLog->setTimeFinish($timeFinish);
             $this->em->persist($fightLog);
         }
 
