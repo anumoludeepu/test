@@ -2,12 +2,25 @@
 # https://symfony.com/doc/current/security.html
 security:
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+
     providers:
-        in_memory:
-            memory: ~
+        hero_provider:
+          id: "rpg.security.hero.user.provider"
 
     firewalls:
+        hero_register:
+            pattern:   ^/char/characters/
+            methods: [POST]
+            anonymous: ~
+
+        hero_secured:
+            pattern: ^/char/
+            stateless: true
+            provider: hero_provider
+            guard:
+                authenticators:
+                    - "rpg.security.hero.authenticator"
+
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

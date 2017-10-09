@@ -21,3 +21,5 @@ php -r 'var_dump(hash_algos());'
 ./bin/console doctrine:schema:create
 ./bin/console doctrine:fixtures:load
 ./bin/console doctrine:fixtures:load
+mysql
+mysql -uroot -proot challenge

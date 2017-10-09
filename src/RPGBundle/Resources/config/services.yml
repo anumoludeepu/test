@@ -58,3 +58,11 @@ services:
       tags:
           - {name: kernel.event_listener, event: fight.start}
           - {name: kernel.event_listener, event: fight.end}
+
+
+  rpg.security.hero.authenticator:
+      class: RPGBundle\Security\HeroAuthenticator
+
+  rpg.security.hero.user.provider:
+      class: RPGBundle\Security\User\Provider
+      arguments: ['@doctrine.orm.default_entity_manager']
