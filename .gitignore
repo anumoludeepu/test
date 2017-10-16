@@ -16,4 +16,5 @@
 /vendor/
 /web/bundles/
 .docker_data
-.idea
+.bash_history
+.composer

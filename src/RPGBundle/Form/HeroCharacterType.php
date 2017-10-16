@@ -13,11 +13,7 @@ class HeroCharacterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (isset($options['factory'])) {
-            $dataType = array_flip($options['factory']->getAvailableCharacterTypes());
-        } else {
-            $dataType = [];
-        }
+        $dataType = $options['dataType'] ?? [];
 
         $builder
             ->add('name', TextType::class, [
@@ -35,7 +31,8 @@ class HeroCharacterType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Select what type of Hero you want',
-                'choices' => $dataType
+                'choices' => $dataType,
+                'invalid_message' => 'Hero type should be: ' . implode(' or ', $dataType)
             ])
         ;
     }
@@ -46,6 +43,7 @@ class HeroCharacterType extends AbstractType
             [
                 'data_class' => HeroCharacterFormData::class,
                 'csrf_protection' => false,
+                'dataType' => [],
             ]
         );
     }

@@ -9,7 +9,7 @@ security:
 
     firewalls:
         hero_register:
-            pattern:   ^/char/characters/
+            pattern:   ^/char/characters
             methods: [POST]
             anonymous: ~
 

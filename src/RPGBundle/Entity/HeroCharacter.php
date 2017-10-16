@@ -61,6 +61,17 @@ class HeroCharacter extends Character
      */
     protected $fightHistory;
 
+    /**
+     * HeroCharacter constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->skills       = new ArrayCollection();
+        $this->fightHistory = new ArrayCollection();
+    }
+
 
     /**
      * @return int

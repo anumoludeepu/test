@@ -1,4 +1,5 @@
 <?php
+
 namespace RPGBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
@@ -31,7 +32,8 @@ class CharacterController extends FOSRestController
      *   }
      * )
      */
-    public function getCharactersAction() {
+    public function getCharactersAction()
+    {
         $heroes = $this->getHeroRepository()->findAll();
         return $heroes;
     }
@@ -50,7 +52,8 @@ class CharacterController extends FOSRestController
      *   }
      * )
      */
-    public function getCharacterAction($id) {
+    public function getCharacterAction($id)
+    {
         $hero = $this->getHeroRepository()->find($id);
         if (!$hero) {
             throw new NotFoundHttpException('Hero not found');
@@ -80,14 +83,22 @@ class CharacterController extends FOSRestController
     public function postCharacterAction(Request $request)
     {
         $factory = $this->get('character.factory');
-        $form = $this->createForm(HeroCharacterType::class, new HeroCharacterFormData(), ['factory' => $factory]);
+        $formData = new HeroCharacterFormData();
+        $charTypes = $factory->getAvailableCharacterTypes();
+        $form = $this->createForm(HeroCharacterType::class, $formData,
+                                  ['dataType' => array_combine($charTypes, $charTypes)]);
 
-        if (!$form->handleRequest($request)->isValid()) {
+
+        $form->submit($request->request->all());
+        if (!$form->isSubmitted() || !$form->isValid()) {
             return View::create($form, Response::HTTP_BAD_REQUEST);
         }
 
-        $hero = $factory->create($form->get('type')->getData(), $form->get('name')->getData(),
-                                 $form->get('password')->getData());
+        $hero = $factory->create(
+            $formData->getType(),
+            $formData->getName(),
+            $formData->getPassword()
+        );
 
         return $hero;
     }
@@ -112,7 +123,7 @@ class CharacterController extends FOSRestController
     public function characterFightEnemyAction($character, $enemy)
     {
         $character = $this->getHeroRepository()->find($character);
-        $enemy = $this->getHeroRepository()->find($enemy);
+        $enemy     = $this->getHeroRepository()->find($enemy);
 
         $event = new FightEvent($character, $enemy);
 

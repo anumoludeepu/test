@@ -1,10 +1,6 @@
 <?php
 namespace RPGBundle\Hero;
 
-use RPGBundle\Entity\CharacterInterface;
-use RPGBundle\Entity\HeroCharacter;
-use RPGBundle\Helper\PasswordHelper;
-
 class MagePrototype extends HeroPrototypeAbstract
 {
 
@@ -12,16 +8,10 @@ class MagePrototype extends HeroPrototypeAbstract
 
     public static $type = 'Mage';
 
-    public function getCharacter(string $name, string $password): CharacterInterface
-    {
-        $character = new HeroCharacter();
-        $character->setAtk(2);
-        $character->setDef(1);
-        $character->setHp(150);
-        $character->setName($name);
-        $character->setPassword(PasswordHelper::encode($password));
+    public static $hp = 150;
 
-        return $character;
-    }
+    public static $def = 1;
+
+    public static $atk = 2;
 
 }

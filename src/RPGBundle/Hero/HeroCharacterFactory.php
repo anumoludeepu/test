@@ -3,7 +3,7 @@ namespace RPGBundle\Hero;
 
 
 use Doctrine\ORM\EntityManager;
-use RPGBundle\Entity\CharacterInterface;
+use RPGBundle\Entity\HeroCharacter;
 use RPGBundle\Entity\HeroSkill;
 use RPGBundle\Entity\Skill;
 
@@ -28,9 +28,9 @@ class HeroCharacterFactory
      * @param string $type
      * @param string $name
      * @param string|null $password
-     * @return null|CharacterInterface
+     * @return null|HeroCharacter
      */
-    public function create(string $type, string $name, string $password): ?CharacterInterface
+    public function create(string $type, string $name, string $password): ?HeroCharacter
     {
         /** @var HeroPrototypeInterface $characterProto */
         $characterProto = isset($this->prototypes[$type]) ? $this->prototypes[$type] : null;
@@ -84,6 +84,11 @@ class HeroCharacterFactory
 
     protected function getSkill($type): Skill
     {
-        return $this->em->getRepository(Skill::class)->findOneBy(['type' => $type]);
+        return $this->getSkillRepo()->findOneBy(['type' => $type]);
+    }
+
+    private function getSkillRepo()
+    {
+        return $this->em->getRepository(Skill::class);
     }
 }

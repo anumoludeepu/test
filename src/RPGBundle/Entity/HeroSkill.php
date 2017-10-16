@@ -83,6 +83,9 @@ class HeroSkill
     public function setHero(HeroCharacter $hero)
     {
         $this->hero = $hero;
+        if (!$hero->getSkills()->contains($this)){
+            $hero->getSkills()->add($this);
+        }
     }
 
     /**

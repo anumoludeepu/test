@@ -1,7 +1,7 @@
 <?php
 namespace RPGBundle\Hero;
 
-use RPGBundle\Entity\CharacterInterface;
+use RPGBundle\Entity\HeroCharacter;
 
 interface HeroPrototypeInterface
 {
@@ -9,5 +9,5 @@ interface HeroPrototypeInterface
 
     public function getSkillType(): string;
 
-    public function getCharacter(string $name, string $password): CharacterInterface;
+    public function getCharacter(string $name, string $password): HeroCharacter;
 }

@@ -1,15 +1,20 @@
 default:
   suites:
     default:
-      paths:    [ %paths.base%/features/default ]
+      paths:    [ %paths.base%/features/ ]
       contexts:
         - Behat\MinkExtension\Context\MinkContext
         - RPGBehat\FeatureContext
+        - RPGBehat\RestContext
 
   extensions:
     Behat\Symfony2Extension: ~
 
     Behat\MinkExtension:
+        default_session: goutte
+        goutte:
+            guzzle_parameters:
+                ssl.certificate_authority: false
         sessions:
             default:
                 symfony2: ~
